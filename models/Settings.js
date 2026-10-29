@@ -22,6 +22,8 @@ const serviceSchema = new mongoose.Schema(
   {
     title: { type: String, default: 'Scroll-Stop Visuals' },
     description: { type: String, default: 'Short-form AI video built for the first 1.5 seconds of a feed.' },
+    details: { type: String, default: '' },
+    includes: { type: [String], default: [] },
   },
   { _id: false }
 );
@@ -115,10 +117,10 @@ const settingsSchema = new mongoose.Schema(
       servicesDescription: { type: String, default: "We combine AI production with ad strategy to build creative that's engineered to perform, not just look good." },
       serviceLinkText: { type: String, default: 'Learn More' },
       services: { type: [serviceSchema], default: [
-        { title: 'Scroll-Stop Visuals', description: 'Short-form AI video built for the first 1.5 seconds of a feed.' },
-        { title: 'Product Commercials', description: 'Studio-grade hero shots and product films — no physical shoot needed.' },
-        { title: 'Full Advertising', description: 'Creative built and paired for Meta & Instagram ad campaigns.' },
-        { title: 'Ad Variant Testing', description: 'Multiple AI-generated hooks and cuts, built to find your winning ad fast.' }
+        { title: 'Scroll-Stop Visuals', description: 'Short-form AI video built for the first 1.5 seconds of a feed.', details: 'Short-form video built for the first second of a feed. We design the opening frame, the motion, and the line of text so someone scrolling actually stops.', includes: ['Thumb-stopping opening frame', 'Vertical cut for Reels and Shorts', 'On-screen hook in the first second', 'A version you can run as an ad'] },
+        { title: 'Product Commercials', description: 'Studio-grade hero shots and product films — no physical shoot needed.', details: 'Studio-style product films without booking a studio. We build hero shots, pack close-ups, and a simple story around the product you already sell.', includes: ['Hero and detail shots of the product', 'Lighting and background matched to the brand', '15s and 30s commercial cuts', 'Clean exports for site and paid social'] },
+        { title: 'Full Advertising', description: 'Creative built and paired for Meta & Instagram ad campaigns.', details: 'Creative and media thinking in one pass. We pair the film with the campaign it is meant to run in, including the hook, the audience, and the placement.', includes: ['Campaign concept, not just a clip', 'Meta and Instagram cutdowns', 'Primary text and headline suggestions', 'A launch-ready file set'] },
+        { title: 'Ad Variant Testing', description: 'Multiple AI-generated hooks and cuts, built to find your winning ad fast.', details: 'One ad is a guess. We produce several hooks and cuts from the same brief so you can see which opening, offer, or length actually wins.', includes: ['3 or more hook variants', 'Same offer, different openings', 'Cuts labeled for your ad account', 'A short note on what each variant tests'] }
       ] },
       workTitle: { type: String, default: 'Real Reels, Real Brands.' },
       workKicker: { type: String, default: 'Selected Work' },
