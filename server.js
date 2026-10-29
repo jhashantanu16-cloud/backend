@@ -6,11 +6,11 @@ const path = require('path');
 
 dotenv.config();
 
+const User = require('./models/User');
 const authRoutes = require('./routes/auth');
 const settingsRoutes = require('./routes/settings');
 const adminRoutes = require('./routes/admin');
 const contactRoutes = require('./routes/contact');
-const User = require('./models/User');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -30,32 +30,39 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 
-const createAdminUser = async () => {
-  try {
-    const existing = await User.findOne({ email: 'admin@gmail.com' });
-    if (!existing) {
-      await User.create({
-        name: 'Admin User',
-        email: 'admin@gmail.com',
-        password: 'Admin@123',
-        role: 'admin',
-      });
-      console.log('Admin created: admin@gmail.com / Admin@123');
-    } else {
-      console.log('Admin already exists');
-    }
-  } catch (error) {
-    console.error('Error creating admin user:', error.message);
+const ensureAdminUser = async () => {
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
+  const name = process.env.ADMIN_NAME?.trim() || 'Admin';
+
+  if (!email || !password) {
+    console.warn('ADMIN_EMAIL or ADMIN_PASSWORD is missing, so no admin user was created');
+    return;
   }
+
+  const existing = await User.findOne({ email });
+  if (existing) {
+    if (existing.role !== 'admin') {
+      existing.role = 'admin';
+      await existing.save();
+      console.log('Existing user promoted to admin');
+    } else {
+      console.log('Admin user already exists');
+    }
+    return;
+  }
+
+  await User.create({ name, email, password, role: 'admin' });
+  console.log('Admin user created');
 };
 
 const startServer = async () => {
   try {
-    await mongoose.connect(process.env.MONGODB_URI || 'mongodb+srv://jhashantanu16_db_user:8K59UiCxQrfX6XbN@cluster0.ia20ith.mongodb.net/', {
+    await mongoose.connect(process.env.MONGODB_URI, {
       serverSelectionTimeoutMS: 10000,
     });
     console.log('MongoDB connected');
-    await createAdminUser();
+    await ensureAdminUser();
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
