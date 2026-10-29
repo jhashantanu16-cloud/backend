@@ -7,12 +7,12 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { name, email, message, plan, price } = req.body;
+    const { name, email, message, plan, price, source } = req.body;
     if (!name?.trim() || !email?.trim() || !message?.trim()) {
       return res.status(400).json({ message: 'Name, email, and message are required' });
     }
 
-    const savedMessage = await ContactMessage.create({ name, email, message, plan: plan || '' });
+    const savedMessage = await ContactMessage.create({ name, email, message, plan: plan || '', source: source || '' });
     let subscription = null;
 
     if (plan) {

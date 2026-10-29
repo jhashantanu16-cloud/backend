@@ -11,6 +11,7 @@ const authRoutes = require('./routes/auth');
 const settingsRoutes = require('./routes/settings');
 const adminRoutes = require('./routes/admin');
 const contactRoutes = require('./routes/contact');
+const marketingRoutes = require('./routes/marketing');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -29,6 +30,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/settings', settingsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/marketing', marketingRoutes);
 
 const ensureAdminUser = async () => {
   const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();

@@ -2,6 +2,7 @@ const express = require('express');
 const User = require('../models/User');
 const auth = require('../middleware/auth');
 const ContactMessage = require('../models/ContactMessage');
+const MarketingEvent = require('../models/MarketingEvent');
 const Subscription = require('../models/Subscription');
 const { sendReply } = require('../services/mailer');
 
@@ -88,6 +89,37 @@ router.delete('/messages/:id', async (req, res) => {
     const deleted = await ContactMessage.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ message: 'Message not found' });
     res.json({ message: 'Message deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+router.get('/marketing', async (req, res) => {
+  try {
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Admin access required' });
+    }
+
+    const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+    const [pageViews, ctaClicks, leads, sources, clicksByLabel] = await Promise.all([
+      MarketingEvent.countDocuments({ type: 'page_view', createdAt: { $gte: since } }),
+      MarketingEvent.countDocuments({ type: 'cta_click', createdAt: { $gte: since } }),
+      ContactMessage.countDocuments({ createdAt: { $gte: since } }),
+      ContactMessage.aggregate([
+        { $match: { source: { $nin: ['', null] }, createdAt: { $gte: since } } },
+        { $group: { _id: '$source', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 6 },
+      ]),
+      MarketingEvent.aggregate([
+        { $match: { type: 'cta_click', createdAt: { $gte: since } } },
+        { $group: { _id: '$label', count: { $sum: 1 } } },
+        { $sort: { count: -1 } },
+        { $limit: 8 },
+      ]),
+    ]);
+
+    res.json({ pageViews, ctaClicks, leads, sources, clicksByLabel });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

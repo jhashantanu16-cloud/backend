@@ -87,16 +87,10 @@ const settingsSchema = new mongoose.Schema(
       subtitle: { type: String, default: 'Motion Franzy turns product photos into scroll-stopping AI video ads — built for cosmetic & beauty brands, founders and the marketers who grow them.' },
       ctaText: { type: String, default: 'See the Work' },
       ctaLink: { type: String, default: '#work' },
-      heroVideo: { type: String, default: 'https://drive.google.com/file/d/1t8Pa7sulJI0naaUZri_DgQSkKoqelGdN/preview' },
+      heroVideo: { type: String, default: '' },
       backgroundOpacity: { type: Number, default: 1, min: 0, max: 1 },
-      backgroundVideos: { type: [String], default: [
-        'https://www.w3schools.com/html/mov_bbb.mp4',
-        'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-      ] },
-      backgroundSlides: { type: [String], default: [
-        'https://www.w3schools.com/html/mov_bbb.mp4',
-        'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-      ] },
+      backgroundVideos: { type: [String], default: [] },
+      backgroundSlides: { type: [String], default: [] },
       badgeText: { type: String, default: 'AI-MADE' },
       badgeValue: { type: String, default: '100%' },
       badgeSub: { type: String, default: 'NO CREW' },
@@ -191,6 +185,33 @@ const settingsSchema = new mongoose.Schema(
       metaDescription: { type: String, default: 'AI-powered advertising studio for beauty, cosmetics and ecommerce brands.' },
       keywords: { type: String, default: 'AI ads, growth, branding, creative agency' },
       ogImage: { type: String, default: '' },
+    },
+    marketing: {
+      announcement: {
+        enabled: { type: Boolean, default: true },
+        text: { type: String, default: 'New brands get a free sample reel this month.' },
+        linkLabel: { type: String, default: 'Claim yours' },
+        link: { type: String, default: '#contact' },
+      },
+      offer: {
+        enabled: { type: Boolean, default: true },
+        badge: { type: String, default: 'Launch offer' },
+        title: { type: String, default: 'Your first concept is on us.' },
+        detail: { type: String, default: 'Tell us about the product. We reply with one scroll-stop concept before you pick a plan.' },
+      },
+      testimonials: {
+        type: [{
+          quote: { type: String, default: '' },
+          name: { type: String, default: '' },
+          role: { type: String, default: '' },
+          result: { type: String, default: '' },
+        }],
+        default: [],
+      },
+      tracking: {
+        googleAnalyticsId: { type: String, default: '' },
+        metaPixelId: { type: String, default: '' },
+      },
     },
     media: {
       heroVideo: { type: String, default: 'https://drive.google.com/file/d/1t8Pa7sulJI0naaUZri_DgQSkKoqelGdN/preview' },

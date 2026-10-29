@@ -63,6 +63,9 @@ router.post('/logo/upload', auth, upload.single('logo'), async (req, res) => {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
     }
+    if (!/^image\//.test(req.file.mimetype)) {
+      return res.status(400).json({ message: 'Logo must be an image file' });
+    }
     const settings = await Settings.findOne() || await defaultSettings();
     settings.logo = { url: `/uploads/${req.file.filename}` };
     await settings.save();
