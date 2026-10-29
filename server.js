@@ -12,6 +12,7 @@ const settingsRoutes = require('./routes/settings');
 const adminRoutes = require('./routes/admin');
 const contactRoutes = require('./routes/contact');
 const marketingRoutes = require('./routes/marketing');
+const mediaRoutes = require('./routes/media');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -31,6 +32,7 @@ app.use('/api/settings', settingsRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/marketing', marketingRoutes);
+app.use('/api/media', mediaRoutes);
 
 const ensureAdminUser = async () => {
   const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
@@ -65,6 +67,7 @@ const startServer = async () => {
     });
     console.log('MongoDB connected');
     await ensureAdminUser();
+    await mediaRoutes.storePreparedHeroVideos();
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
     console.error('MongoDB connection error:', error.message);
