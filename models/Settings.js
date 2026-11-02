@@ -184,9 +184,29 @@ const settingsSchema = new mongoose.Schema(
     },
     seo: {
       metaTitle: { type: String, default: 'Motion Franzy — AI Ads Agency' },
-      metaDescription: { type: String, default: 'AI-powered advertising studio for beauty, cosmetics and ecommerce brands.' },
-      keywords: { type: String, default: 'AI ads, growth, branding, creative agency' },
-      ogImage: { type: String, default: '' },
+      metaDescription: { type: String, default: 'AI video ads, product commercials and social creatives for brands that want to stop the scroll.' },
+      keywords: { type: String, default: 'AI ads, AI video ads, product commercials, Motion Franzy' },
+      canonicalUrl: { type: String, default: 'https://motionfranzy.com/' },
+      robots: { type: String, default: 'index, follow' },
+      ogTitle: { type: String, default: 'Motion Franzy — AI Ads Agency' },
+      ogDescription: { type: String, default: 'AI video ads and product commercials made to stop the scroll.' },
+      ogImage: { type: String, default: 'https://motionfranzy.com/motion-franzy-logo.png' },
+      pages: {
+        type: [{
+          key: { type: String, default: '' },
+          label: { type: String, default: '' },
+          path: { type: String, default: '' },
+          title: { type: String, default: '' },
+          description: { type: String, default: '' },
+        }],
+        default: [
+          { key: 'home', label: 'Homepage', path: '/', title: 'Motion Franzy — AI Ads Agency', description: 'AI video ads, product commercials and social creatives for brands that want to stop the scroll.' },
+          { key: 'services', label: 'Services', path: '/#services', title: 'AI Video Advertising Services — Motion Franzy', description: 'AI video ads, product commercials, campaign creatives and ad variant testing.' },
+          { key: 'portfolio', label: 'Portfolio', path: '/work', title: 'Portfolio — Real Reels, Real Brands | Motion Franzy', description: 'Selected AI ad reels made for brands by Motion Franzy.' },
+          { key: 'about', label: 'About', path: '', title: 'About Motion Franzy', description: 'Motion Franzy is an AI advertising studio making cinematic video ads for brands.' },
+          { key: 'contact', label: 'Contact', path: '/#contact', title: 'Contact Motion Franzy', description: 'Tell Motion Franzy about your product and get a sample scroll-stop concept.' },
+        ],
+      },
     },
     marketing: {
       announcement: {
