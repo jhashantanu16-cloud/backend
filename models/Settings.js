@@ -114,7 +114,7 @@ const settingsSchema = new mongoose.Schema(
       introLinkText: { type: String, default: 'View Full Portfolio' },
       servicesKicker: { type: String, default: 'What We Do' },
       servicesTitle: { type: String, default: 'Smart Creative For Bold Brands.' },
-      servicesDescription: { type: String, default: "We combine AI production with ad strategy to build creative that's engineered to perform, not just look good." },
+      servicesDescription: { type: String, default: 'We combine AI production with ad strategy to build AI product commercials, AI Instagram reel ads, and AI video ads for ecommerce brands.' },
       serviceLinkText: { type: String, default: 'Learn More' },
       services: { type: [serviceSchema], default: [
         { title: 'Scroll-Stop Visuals', description: 'Short-form AI video built for the first 1.5 seconds of a feed.', details: 'Short-form video built for the first second of a feed. We design the opening frame, the motion, and the line of text so someone scrolling actually stops.', includes: ['Thumb-stopping opening frame', 'Vertical cut for Reels and Shorts', 'On-screen hook in the first second', 'A version you can run as an ad'] },
@@ -183,13 +183,13 @@ const settingsSchema = new mongoose.Schema(
       message: { type: String, default: 'We are updating the site. Please check back soon.' },
     },
     seo: {
-      metaTitle: { type: String, default: 'Motion Franzy — AI Ads Agency' },
-      metaDescription: { type: String, default: 'AI video ads, product commercials and social creatives for brands that want to stop the scroll.' },
-      keywords: { type: String, default: 'AI ads, AI video ads, product commercials, Motion Franzy' },
+      metaTitle: { type: String, default: 'AI Video Ads Agency | Motion Franzy' },
+      metaDescription: { type: String, default: 'Motion Franzy is an AI video ads agency making product commercials, Instagram reel ads, and video ads for ecommerce brands.' },
+      keywords: { type: String, default: 'AI video ads agency, AI product commercials, AI Instagram reel ads, AI video ads for ecommerce brands, Motion Franzy' },
       canonicalUrl: { type: String, default: 'https://motionfranzy.com/' },
       robots: { type: String, default: 'index, follow' },
-      ogTitle: { type: String, default: 'Motion Franzy — AI Ads Agency' },
-      ogDescription: { type: String, default: 'AI video ads and product commercials made to stop the scroll.' },
+      ogTitle: { type: String, default: 'AI Video Ads Agency | Motion Franzy' },
+      ogDescription: { type: String, default: 'AI product commercials, Instagram reel ads, and video ads for ecommerce brands.' },
       ogImage: { type: String, default: 'https://motionfranzy.com/motion-franzy-logo.png' },
       pages: {
         type: [{
@@ -200,7 +200,7 @@ const settingsSchema = new mongoose.Schema(
           description: { type: String, default: '' },
         }],
         default: [
-          { key: 'home', label: 'Homepage', path: '/', title: 'Motion Franzy — AI Ads Agency', description: 'AI video ads, product commercials and social creatives for brands that want to stop the scroll.' },
+          { key: 'home', label: 'Homepage', path: '/', title: 'AI Video Ads Agency | Motion Franzy', description: 'Motion Franzy is an AI video ads agency making product commercials, Instagram reel ads, and video ads for ecommerce brands.' },
           { key: 'services', label: 'Services', path: '/#services', title: 'AI Video Advertising Services — Motion Franzy', description: 'AI video ads, product commercials, campaign creatives and ad variant testing.' },
           { key: 'portfolio', label: 'Portfolio', path: '/work', title: 'Portfolio — Real Reels, Real Brands | Motion Franzy', description: 'Selected AI ad reels made for brands by Motion Franzy.' },
           { key: 'about', label: 'About', path: '', title: 'About Motion Franzy', description: 'Motion Franzy is an AI advertising studio making cinematic video ads for brands.' },
