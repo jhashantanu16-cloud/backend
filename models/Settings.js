@@ -10,6 +10,49 @@ const socialLinksSchema = new mongoose.Schema(
   { _id: false }
 );
 
+const galleryItemSchema = new mongoose.Schema(
+  {
+    title: { type: String, default: '' },
+    media: { type: String, default: '' },
+    tag: { type: String, default: '' },
+    text: { type: String, default: '' },
+  },
+  { _id: false }
+);
+
+const homeSectionItemSchema = new mongoose.Schema(
+  {
+    title: { type: String, default: '' },
+    text: { type: String, default: '' },
+  },
+  { _id: false }
+);
+
+const homeSectionSchema = new mongoose.Schema(
+  {
+    anchor: { type: String, default: '' },
+    menuLabel: { type: String, default: 'Section' },
+    kicker: { type: String, default: '' },
+    title: { type: String, default: '' },
+    body: { type: String, default: '' },
+    showInNav: { type: Boolean, default: true },
+    items: { type: [homeSectionItemSchema], default: [] },
+  },
+  { _id: false }
+);
+
+const customPageSchema = new mongoose.Schema(
+  {
+    slug: { type: String, default: '' },
+    menuLabel: { type: String, default: 'Gallery' },
+    title: { type: String, default: 'Gallery' },
+    description: { type: String, default: '' },
+    showInNav: { type: Boolean, default: true },
+    items: { type: [galleryItemSchema], default: [] },
+  },
+  { _id: false }
+);
+
 const navItemSchema = new mongoose.Schema(
   {
     label: { type: String, default: 'Work' },
@@ -82,6 +125,8 @@ const settingsSchema = new mongoose.Schema(
       ctaText: { type: String, default: "Let's Talk" },
       ctaLink: { type: String, default: '#contact' },
     },
+    customPages: { type: [customPageSchema], default: [] },
+    homeSections: { type: [homeSectionSchema], default: [] },
     heroSection: {
       enabled: { type: Boolean, default: true },
       title: { type: String, default: 'ADS BUILT TO STOP THE SCROLL.' },
